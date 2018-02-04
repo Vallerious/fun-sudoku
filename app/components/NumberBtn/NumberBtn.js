@@ -1,10 +1,14 @@
 import React from 'react'
-import {Text} from 'react-native'
+import {View, Text, TouchableWithoutFeedback} from 'react-native'
 import styles from './styles'
 
 const NumberBtn = (props) => {
   return (
-    <Text style={styles.btn}>{props.value}</Text>
+    <TouchableWithoutFeedback onPressIn={props.playCell.bind(null, props.value)}>
+      <View style={styles.container}>
+        <Text style={styles.btn}>{props.value}</Text>
+      </View>
+    </TouchableWithoutFeedback>
   )
 }
 

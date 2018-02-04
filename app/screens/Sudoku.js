@@ -17,8 +17,14 @@ class Sudoku extends React.Component {
   render () {
     return (
       <View style={{flex: 1}}>
-        <SudokuField fullSudokuField={this.props.fullSudokuField} visibleFields={this.props.visibleFields} />
-        <NumberButtons />
+        <SudokuField
+          fullSudokuField={this.props.fullSudokuField}
+          visibleFields={this.props.visibleFields}
+          selectedCell={this.props.selectedCell}
+          selectCell={this.props.setSelectedCell}
+          colorfulSeparationCells={this.props.colorfulSeparationCells}
+          />
+        <NumberButtons playCell={this.props.playCell}/>
       </View>
     )
   }
@@ -27,7 +33,9 @@ class Sudoku extends React.Component {
 function mapStateToProps(state, props) {
   return {
     fullSudokuField: state.reducer.fullSudokuField,
-    visibleFields: state.reducer.visibleFields
+    visibleFields: state.reducer.visibleFields,
+    selectedCell: state.reducer.selectedCell,
+    colorfulSeparationCells: state.reducer.colorfulSeparationCells
   }
 }
 

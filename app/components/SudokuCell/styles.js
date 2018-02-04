@@ -6,10 +6,11 @@ export default styles = StyleSheet.create({
     width: cellDimentions,
     height:cellDimentions,
     borderWidth: 0.5,
-    borderColor: '#d6d7da'
+    borderColor: '#d6d7da',
   },
   cellText: {
     lineHeight: cellDimentions,
     textAlign: "center",
+    fontSize: 25
   }
 })

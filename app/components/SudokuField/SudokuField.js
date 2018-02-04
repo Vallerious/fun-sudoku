@@ -25,7 +25,15 @@ export default class SudokuField extends Component {
       <View style={styles.container}>
         <ListView
           dataSource={this.state.dataSource.cloneWithRows(this.props.fullSudokuField)}
-          renderRow={(rowSquares, sectionId, rowId) => <SudokuRow squares={rowSquares} rowIdx={rowId} visibleFields={this.props.visibleFields}/>}
+          renderRow={(rowSquares, sectionId, rowId) =>
+            <SudokuRow
+              squares={rowSquares}
+              rowIdx={rowId}
+              visibleFields={this.props.visibleFields}
+              selectedCell={this.props.selectedCell}
+              selectCell={this.props.selectCell}
+              colorfulSeparationCells={this.props.colorfulSeparationCells}
+            />}
         />
       </View>
     );
