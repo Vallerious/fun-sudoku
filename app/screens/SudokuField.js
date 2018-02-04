@@ -3,10 +3,11 @@ import {Text} from 'react-native'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as Actions from '../actions';
+import sudokuGenerator from '../lib/sudokuGenerator'
 
 class SudokuField extends React.Component {
   componentWillMount() {
-    this.props.setSudokuField([{asd: 1}])
+    this.props.setSudokuField(sudokuGenerator.generateSudoku().map(sq => sq.Value))
   }
 
   render () {
