@@ -7,6 +7,7 @@ import sudokuGenerator from '../lib/sudokuGenerator'
 import * as _ from 'lodash'
 import SudokuField from '../components/SudokuField'
 import NumberButtons from '../components/NumberButtons'
+import ActionBar from '../components/ActionBar'
 
 class Sudoku extends React.Component {
   componentWillMount() {
@@ -24,6 +25,7 @@ class Sudoku extends React.Component {
           selectCell={this.props.setSelectedCell}
           colorfulSeparationCells={this.props.colorfulSeparationCells}
           />
+        <ActionBar clearCell={this.props.clearCell}/>
         <NumberButtons playCell={this.props.playCell}/>
       </View>
     )

@@ -8,8 +8,8 @@ const SudokuCell = (props) => {
     <TouchableWithoutFeedback onPressIn={props.selectCell.bind(null, {r: props.row, c: props.col})}>
       <View style={StyleSheet.flatten([
         styles.cell,
-        (props.selectedCell.r === props.row && props.selectedCell.c === props.col) ? {backgroundColor: '#F0F8FF'} : {},
-        (`${props.row}:${props.col}` in props.colorfulSeparationCells) ? {backgroundColor: '#cccc00'} : {}
+        (`${props.row}:${props.col}` in props.colorfulSeparationCells) ? {backgroundColor: '#ffffe0'} : {},
+        (props.selectedCell.r === props.row && props.selectedCell.c === props.col) ? {backgroundColor: '#00cccc'} : {},
       ])}>
           <Text
             style={StyleSheet.flatten([styles.cellText, {

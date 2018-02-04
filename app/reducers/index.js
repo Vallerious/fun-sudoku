@@ -1,8 +1,9 @@
 import {combineReducers} from 'redux'
 import * as _ from 'lodash'
 
-import {SET_GENERATED_FIELD, SET_VISIBLE_FIELDS, SET_SELECTED_CELL, PLAY_SUDOKU_CELL} from '../actions'
+import {SET_GENERATED_FIELD, SET_VISIBLE_FIELDS, SET_SELECTED_CELL, PLAY_SUDOKU_CELL, CLEAR_CELL} from '../actions'
 let originalSudokuBoard = []
+let originalVisibleFields = []
 let colorfulSeparationCells = {
   '0:3': 1, '1:3': 1, '2:3': 1, '3:3': 1, '4:3': 1, '5:3': 1, '6:3': 1, '7:3': 1, '8:3': 1,
   '0:4': 1, '1:4': 1, '2:4': 1, '3:4': 1, '4:4': 1, '5:4': 1, '6:4': 1, '7:4': 1, '8:4': 1,
@@ -26,6 +27,7 @@ const reducer = (state = defaultState, action) => {
         fullSudokuField: action.data
       })
     case SET_VISIBLE_FIELDS:
+      originalVisibleFields = _.cloneDeep(action.data)
       return Object.assign({}, state, {
         visibleFields: action.data
       })
@@ -48,6 +50,22 @@ const reducer = (state = defaultState, action) => {
         fullSudokuField: newSudokuField,
         visibleFields
       })
+    case CLEAR_CELL:
+      // Check if cell is from the original cells - if it is - do not clear it
+      const key = `${state.selectedCell.r}:${state.selectedCell.c}`
+      if (!(key in originalVisibleFields) && !_.isEmpty(state.selectedCell)) {
+        const newVisibleFields = _.cloneDeep(state.visibleFields)
+        const newSudokuBoard = _.cloneDeep(state.fullSudokuField)
+        delete newVisibleFields[key]
+        newSudokuBoard[state.selectedCell.r][state.selectedCell.c] = originalSudokuBoard[state.selectedCell.r][state.selectedCell.c]
+
+        return Object.assign({}, state, {
+          visibleFields: newVisibleFields,
+          fullSudokuField: newSudokuBoard
+        })
+      } else {
+        return state;
+      }
     default:
       return state;
   }
