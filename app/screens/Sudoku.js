@@ -4,14 +4,18 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as Actions from '../actions';
 import sudokuGenerator from '../lib/sudokuGenerator'
+import * as _ from 'lodash'
+import SudokuField from '../components/SudokuField'
 
-class SudokuField extends React.Component {
+class Sudoku extends React.Component {
   componentWillMount() {
-    this.props.setSudokuField(sudokuGenerator.generateSudoku().map(sq => sq.Value))
+    this.props.setSudokuField(_.chunk(sudokuGenerator.generateSudoku().map(sq => sq.Value), 9))
   }
 
   render () {
-    return (<Text>Hello from sudoku field {JSON.stringify(this.props.fullSudokuField)}</Text>)
+    return (
+      <SudokuField fullSudokuField={this.props.fullSudokuField} />
+    )
   }
 }
 
@@ -25,4 +29,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(Actions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SudokuField);
+export default connect(mapStateToProps, mapDispatchToProps)(Sudoku);

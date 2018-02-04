@@ -11,7 +11,7 @@ import {
   Text,
   View
 } from 'react-native';
-import SudokuField from './app/screens/SudokuField'
+import Sudoku from './app/screens/Sudoku'
 
 import { Provider } from 'react-redux'
 import store from './app/store'
@@ -20,7 +20,7 @@ export default class App extends Component<{}> {
   render() {
     return (
       <Provider store={store}>
-        <SudokuField />
+        <Sudoku />
       </Provider>
     );
   }
