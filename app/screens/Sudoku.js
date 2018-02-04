@@ -10,18 +10,20 @@ import SudokuField from '../components/SudokuField'
 class Sudoku extends React.Component {
   componentWillMount() {
     this.props.setSudokuField(_.chunk(sudokuGenerator.generateSudoku().map(sq => sq.Value), 9))
+    this.props.setVisibleFields(sudokuGenerator.getVisibleCells())
   }
 
   render () {
     return (
-      <SudokuField fullSudokuField={this.props.fullSudokuField} />
+      <SudokuField fullSudokuField={this.props.fullSudokuField} visibleFields={this.props.visibleFields} />
     )
   }
 }
 
 function mapStateToProps(state, props) {
   return {
-    fullSudokuField: state.reducer.fullSudokuField
+    fullSudokuField: state.reducer.fullSudokuField,
+    visibleFields: state.reducer.visibleFields
   }
 }
 

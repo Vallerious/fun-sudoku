@@ -5,6 +5,7 @@ const {
   Text
 } = require('react-native');
 import SudokuRow from '../SudokuRow'
+import styles from './styles'
 
 export default class SudokuField extends Component {
   constructor(props) {
@@ -21,10 +22,10 @@ export default class SudokuField extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <ListView
           dataSource={this.state.dataSource.cloneWithRows(this.props.fullSudokuField)}
-          renderRow={rowSquares => <SudokuRow squares={rowSquares} />}
+          renderRow={(rowSquares, sectionId, rowId) => <SudokuRow squares={rowSquares} rowIdx={rowId} visibleFields={this.props.visibleFields}/>}
         />
       </View>
     );

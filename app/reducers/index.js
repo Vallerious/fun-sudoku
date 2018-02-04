@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux'
 
-import {SET_GENERATED_FIELD} from '../actions'
+import {SET_GENERATED_FIELD, SET_VISIBLE_FIELDS} from '../actions'
 
 let defaultState= {
   fullSudokuField: [],
-  shownSudokuFields: {}
+  visibleFields: {}
 }
 
 const reducer = (state = defaultState, action) => {
@@ -12,6 +12,10 @@ const reducer = (state = defaultState, action) => {
     case SET_GENERATED_FIELD:
       return Object.assign({}, state, {
         fullSudokuField: action.data
+      })
+    case SET_VISIBLE_FIELDS:
+      return Object.assign({}, state, {
+        visibleFields: action.data
       })
     default:
       return state;

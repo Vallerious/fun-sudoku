@@ -30,6 +30,26 @@ export default sudokuGenerator = {
     }
 
     return squares
+  },
+
+  getVisibleCells: () => {
+    const visibleCellsCount = 30;
+    const visibleCells = {};
+    const allCellCoords = [];
+
+    for (let row = 0; row < 9; row++) {
+      for (let col = 0; col < 9; col++) {
+        allCellCoords.push(`${row}:${col}`)
+      }
+    }
+
+    for (let i = 0; i < visibleCellsCount; i++) {
+      let randomIdx = getRandomNaturalNumber(allCellCoords.length);
+      visibleCells[allCellCoords[randomIdx]] = 1
+      allCellCoords.splice(randomIdx, 1)
+    }
+
+    return visibleCells;
   }
 }
 

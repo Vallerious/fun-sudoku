@@ -1,10 +1,13 @@
 import React from 'react'
-const { Text } = require('react-native');
+const { View, Text, StyleSheet } = require('react-native');
 import styles from './styles'
 
 const SudokuCell = (props) => {
+  const rowColKey = `${props.row}:${props.col}`
   return (
-    <Text style={styles.cell}>{props.value}</Text>
+    <View style={styles.cell}>
+      <Text style={StyleSheet.flatten([styles.cellText, {opacity: rowColKey in props.visibleFields ? 1 : 0}])}>{props.value}</Text>
+    </View>
   )
 }
 
