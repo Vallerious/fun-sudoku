@@ -1,11 +1,12 @@
 import React from 'react'
-import {Text} from 'react-native'
+import {View} from 'react-native'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as Actions from '../actions';
 import sudokuGenerator from '../lib/sudokuGenerator'
 import * as _ from 'lodash'
 import SudokuField from '../components/SudokuField'
+import NumberButtons from '../components/NumberButtons'
 
 class Sudoku extends React.Component {
   componentWillMount() {
@@ -15,7 +16,10 @@ class Sudoku extends React.Component {
 
   render () {
     return (
-      <SudokuField fullSudokuField={this.props.fullSudokuField} visibleFields={this.props.visibleFields} />
+      <View style={{flex: 1}}>
+        <SudokuField fullSudokuField={this.props.fullSudokuField} visibleFields={this.props.visibleFields} />
+        <NumberButtons />
+      </View>
     )
   }
 }
