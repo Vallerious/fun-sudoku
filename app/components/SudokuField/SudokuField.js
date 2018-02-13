@@ -33,6 +33,7 @@ export default class SudokuField extends Component {
               selectedCell={this.props.selectedCell}
               selectCell={this.props.selectCell}
               colorfulSeparationCells={this.props.colorfulSeparationCells}
+              originalVisibleFields={this.props.originalVisibleFields}
             />}
         />
       </View>

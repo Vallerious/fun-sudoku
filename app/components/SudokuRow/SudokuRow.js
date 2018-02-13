@@ -18,6 +18,7 @@ const SudokuRow = (props) => {
           selectedCell={props.selectedCell}
           selectCell={props.selectCell}
           colorfulSeparationCells={props.colorfulSeparationCells}
+          originalVisibleFields={props.originalVisibleFields}
         />
         )}
     </View>

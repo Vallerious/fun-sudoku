@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux'
 import * as _ from 'lodash'
 
-import {SET_GENERATED_FIELD, SET_VISIBLE_FIELDS, SET_SELECTED_CELL, PLAY_SUDOKU_CELL, CLEAR_CELL, GIVE_HINT} from '../actions'
+import {SET_GENERATED_FIELD, SET_VISIBLE_FIELDS, SET_SELECTED_CELL, PLAY_SUDOKU_CELL, CLEAR_CELL, GIVE_HINT, CHECK_GAME, NEW_GAME} from '../actions'
 const hintCount = 3
 let originalSudokuBoard = []
 let originalVisibleFields = []
@@ -13,12 +13,14 @@ let colorfulSeparationCells = {
   '3:6': 1, '3:7': 1, '3:8': 1, '4:6': 1, '4:7': 1, '4:8': 1, '5:6': 1, '5:7': 1, '5:8': 1,
 }
 
-let defaultState= {
+let defaultState = {
   fullSudokuField: [],
   visibleFields: {},
   selectedCell: {},
   colorfulSeparationCells,
-  hintsLeft: hintCount
+  hintsLeft: hintCount,
+  originalVisibleFields: {},
+  gameCompleted: false
 }
 
 const reducer = (state = defaultState, action) => {
@@ -32,7 +34,8 @@ const reducer = (state = defaultState, action) => {
     case SET_VISIBLE_FIELDS:
       originalVisibleFields = _.cloneDeep(action.data)
       return Object.assign({}, state, {
-        visibleFields: action.data
+        visibleFields: action.data,
+        originalVisibleFields: _.cloneDeep(action.data)
       })
     case SET_SELECTED_CELL:
       return Object.assign({}, state, {
@@ -74,6 +77,7 @@ const reducer = (state = defaultState, action) => {
         const newSudokuBoard = _.cloneDeep(state.fullSudokuField)
         newVisibleFields[key] = 1
         originalVisibleFields[`${state.selectedCell.r}:${state.selectedCell.c}`] = 1
+        newSudokuBoard[state.selectedCell.r][state.selectedCell.c] = originalSudokuBoard[state.selectedCell.r][state.selectedCell.c]
         return Object.assign({}, state, {
           visibleFields: newVisibleFields,
           fullSudokuField: newSudokuBoard,
@@ -82,6 +86,16 @@ const reducer = (state = defaultState, action) => {
       } else {
         return state;
       }
+    case CHECK_GAME:
+      if (_.isEqual(state.fullSudokuField, originalSudokuBoard)) {
+        return Object.assign({}, state, {
+          gameCompleted: true
+        })
+      } else {
+        return state
+      }
+    case NEW_GAME:
+      return Object.assign({}, state, defaultState)
     default:
       return state;
   }

@@ -14,7 +14,7 @@ const SudokuCell = (props) => {
           <Text
             style={StyleSheet.flatten([styles.cellText, {
               opacity: rowColKey in props.visibleFields ? 1 : 0,
-            }])}
+            }, !(`${props.row}:${props.col}` in props.originalVisibleFields) ? {color: '#8080ff'} : {}])}
           >{props.value}</Text>
       </View>
     </TouchableWithoutFeedback>

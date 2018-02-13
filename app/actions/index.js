@@ -4,6 +4,8 @@ export const SET_SELECTED_CELL = 'SET_SELECTED_CELL'
 export const PLAY_SUDOKU_CELL = 'PLAY_SUDOKU_CELL'
 export const CLEAR_CELL = 'CLEAR_CELL'
 export const GIVE_HINT =  'GIVE_HINT'
+export const CHECK_GAME = 'CHECK_GAME'
+export const NEW_GAME = 'NEW_GAME'
 
 export const setSudokuField = squares => dispatch => {
   dispatch({
@@ -42,5 +44,17 @@ export const clearCell = () => dispatch => {
 export const giveHint = () => dispatch => {
   dispatch({
     type: GIVE_HINT
+  })
+}
+
+export const checkGame = () => dispatch => {
+  dispatch({
+    type: CHECK_GAME
+  })
+}
+
+export const newGame = () => dispatch => {
+  dispatch({
+    type: NEW_GAME
   })
 }
