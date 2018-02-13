@@ -8,6 +8,9 @@ const ActionBar = (props) => {
       <TouchableWithoutFeedback onPress={props.clearCell}>
           <Text style={styles.clearBtn}>Clear</Text>
       </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={props.giveHint}>
+          <Text style={{textDecorationLine: "underline"}}>Hint</Text>
+      </TouchableWithoutFeedback>
     </View>
   )
 }

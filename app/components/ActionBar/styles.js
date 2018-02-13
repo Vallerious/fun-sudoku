@@ -7,6 +7,7 @@ export default styles = StyleSheet.create({
     justifyContent : "center"
   },
   clearBtn: {
-    textDecorationLine: "underline"
+    textDecorationLine: "underline",
+    marginRight: 20
   }
 })

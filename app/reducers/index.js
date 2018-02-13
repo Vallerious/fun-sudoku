@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux'
 import * as _ from 'lodash'
 
-import {SET_GENERATED_FIELD, SET_VISIBLE_FIELDS, SET_SELECTED_CELL, PLAY_SUDOKU_CELL, CLEAR_CELL} from '../actions'
+import {SET_GENERATED_FIELD, SET_VISIBLE_FIELDS, SET_SELECTED_CELL, PLAY_SUDOKU_CELL, CLEAR_CELL, GIVE_HINT} from '../actions'
 let originalSudokuBoard = []
 let originalVisibleFields = []
 let colorfulSeparationCells = {
@@ -20,6 +20,7 @@ let defaultState= {
 }
 
 const reducer = (state = defaultState, action) => {
+  let key = `${state.selectedCell.r}:${state.selectedCell.c}`
   switch (action.type) {
     case SET_GENERATED_FIELD:
       originalSudokuBoard = Object.assign([], action.data);
@@ -40,7 +41,7 @@ const reducer = (state = defaultState, action) => {
       let visibleFields = _.cloneDeep(state.visibleFields)
       if (!_.isEmpty(state.selectedCell)) {
         const targetSudokuField = state.visibleFields[`${state.selectedCell.r}:${state.selectedCell.c}`]
-        if (!targetSudokuField) {
+        if (!targetSudokuField || (targetSudokuField && !originalVisibleFields[`${state.selectedCell.r}:${state.selectedCell.c}`])) {
           newSudokuField[+state.selectedCell.r][state.selectedCell.c] = action.value
           visibleFields[`${state.selectedCell.r}:${state.selectedCell.c}`] = 1
         }
@@ -52,13 +53,25 @@ const reducer = (state = defaultState, action) => {
       })
     case CLEAR_CELL:
       // Check if cell is from the original cells - if it is - do not clear it
-      const key = `${state.selectedCell.r}:${state.selectedCell.c}`
       if (!(key in originalVisibleFields) && !_.isEmpty(state.selectedCell)) {
         const newVisibleFields = _.cloneDeep(state.visibleFields)
         const newSudokuBoard = _.cloneDeep(state.fullSudokuField)
         delete newVisibleFields[key]
         newSudokuBoard[state.selectedCell.r][state.selectedCell.c] = originalSudokuBoard[state.selectedCell.r][state.selectedCell.c]
 
+        return Object.assign({}, state, {
+          visibleFields: newVisibleFields,
+          fullSudokuField: newSudokuBoard
+        })
+      } else {
+        return state;
+      }
+    case GIVE_HINT:
+      if (!(key in originalVisibleFields)) {
+        const newVisibleFields = _.cloneDeep(state.visibleFields)
+        const newSudokuBoard = _.cloneDeep(state.fullSudokuField)
+        newVisibleFields[key] = 1
+        originalVisibleFields[`${state.selectedCell.r}:${state.selectedCell.c}`] = 1
         return Object.assign({}, state, {
           visibleFields: newVisibleFields,
           fullSudokuField: newSudokuBoard

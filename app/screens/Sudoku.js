@@ -25,7 +25,7 @@ class Sudoku extends React.Component {
           selectCell={this.props.setSelectedCell}
           colorfulSeparationCells={this.props.colorfulSeparationCells}
           />
-        <ActionBar clearCell={this.props.clearCell}/>
+        <ActionBar clearCell={this.props.clearCell} giveHint={this.props.giveHint} />
         <NumberButtons playCell={this.props.playCell}/>
       </View>
     )
