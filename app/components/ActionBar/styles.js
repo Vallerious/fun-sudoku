@@ -4,7 +4,8 @@ export default styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent : "center"
+    justifyContent : "center",
+    marginTop: 20
   },
   clearBtn: {
     textDecorationLine: "underline",
