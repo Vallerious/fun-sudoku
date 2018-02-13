@@ -2,6 +2,7 @@ import {combineReducers} from 'redux'
 import * as _ from 'lodash'
 
 import {SET_GENERATED_FIELD, SET_VISIBLE_FIELDS, SET_SELECTED_CELL, PLAY_SUDOKU_CELL, CLEAR_CELL, GIVE_HINT} from '../actions'
+const hintCount = 3
 let originalSudokuBoard = []
 let originalVisibleFields = []
 let colorfulSeparationCells = {
@@ -16,7 +17,8 @@ let defaultState= {
   fullSudokuField: [],
   visibleFields: {},
   selectedCell: {},
-  colorfulSeparationCells
+  colorfulSeparationCells,
+  hintsLeft: hintCount
 }
 
 const reducer = (state = defaultState, action) => {
@@ -67,14 +69,15 @@ const reducer = (state = defaultState, action) => {
         return state;
       }
     case GIVE_HINT:
-      if (!(key in originalVisibleFields)) {
+      if (!(key in originalVisibleFields) && state.hintsLeft > 0) {
         const newVisibleFields = _.cloneDeep(state.visibleFields)
         const newSudokuBoard = _.cloneDeep(state.fullSudokuField)
         newVisibleFields[key] = 1
         originalVisibleFields[`${state.selectedCell.r}:${state.selectedCell.c}`] = 1
         return Object.assign({}, state, {
           visibleFields: newVisibleFields,
-          fullSudokuField: newSudokuBoard
+          fullSudokuField: newSudokuBoard,
+          hintsLeft: --state.hintsLeft
         })
       } else {
         return state;

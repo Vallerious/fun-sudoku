@@ -25,7 +25,7 @@ class Sudoku extends React.Component {
           selectCell={this.props.setSelectedCell}
           colorfulSeparationCells={this.props.colorfulSeparationCells}
           />
-        <ActionBar clearCell={this.props.clearCell} giveHint={this.props.giveHint} />
+        <ActionBar clearCell={this.props.clearCell} giveHint={this.props.giveHint} hintsLeft={this.props.hintsLeft} />
         <NumberButtons playCell={this.props.playCell}/>
       </View>
     )
@@ -37,7 +37,8 @@ function mapStateToProps(state, props) {
     fullSudokuField: state.reducer.fullSudokuField,
     visibleFields: state.reducer.visibleFields,
     selectedCell: state.reducer.selectedCell,
-    colorfulSeparationCells: state.reducer.colorfulSeparationCells
+    colorfulSeparationCells: state.reducer.colorfulSeparationCells,
+    hintsLeft: state.reducer.hintsLeft
   }
 }
 
