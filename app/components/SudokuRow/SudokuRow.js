@@ -7,7 +7,7 @@ import SudokuCell from '../SudokuCell'
 
 const SudokuRow = (props) => {
   return (
-    <View style={{flexDirection: 'row'}}>
+    <View style={{flex: 1, flexDirection: 'row'}}>
       {props.squares.map((rs, idx) =>
         <SudokuCell
           key={idx}

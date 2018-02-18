@@ -1,11 +1,13 @@
-import {StyleSheet} from 'react-native'
-const cellDimentions = '11%';
+import {StyleSheet, Dimensions} from 'react-native'
 
 export default styles = StyleSheet.create({
   cell: {
-    width: cellDimentions,
+    flex: 1,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
+    height: Dimensions.get('window').width / 9 - (2 * (0.01 * Dimensions.get('window').width)),
+    textAlign: 'center',
+    justifyContent: 'center'
   },
   cellText: {
     textAlign: "center",

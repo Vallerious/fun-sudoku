@@ -43,7 +43,7 @@ class Sudoku extends React.Component {
 
   render () {
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, paddingLeft: '2%', paddingRight: '2%'}}>
         <SudokuField
           fullSudokuField={this.props.fullSudokuField}
           visibleFields={this.props.visibleFields}
